@@ -38,7 +38,7 @@ void updateRendererTex() {
   static auto PSPLASHFONTSIZE = CConfigValue<Config::INTEGER>("misc:splash_font_size");
 
   for (auto &m : State::monitorState()->monitors()) {
-    int fontSize = *PSPLASHFONTSIZE > 0 ? *PSPLASHFONTSIZE : m->m_transformedSize.y / 76;
+    int fontSize = (PSPLASHFONTSIZE.good() && *PSPLASHFONTSIZE > 0) ? (int)*PSPLASHFONTSIZE : m->m_transformedSize.y / 76;
 
     m->m_splash = g_pHyprRenderer->renderSplash([m](auto width, auto height, const auto DATA) { return g_pHyprRenderer->createTexture(width, height, DATA); }, 
                                                 fontSize,
